@@ -6,19 +6,6 @@ Official repository for ["Unsafe LLM-Based Search: Quantitative Analysis and Mit
 
 ![Teaser Preview](teaser.png)
 
-## Citation
-```
-@misc{UnsafeSearch2025,
-      title={Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search}, 
-      author = {Zeren Luo and Zifan Peng and Yule Liu and Zhen Sun and Mingchen Li and Jingyi Zheng and Xinlei He},
-      year={2025},
-      eprint={2502.04951},
-      archivePrefix={arXiv},
-      primaryClass={cs.CR},
-      url={https://arxiv.org/abs/2502.04951}, 
-}
-```
-
 ## **Introduction**
 
 This repository provides an Agent framework of the Risk Mitigation part in our paper. The XGBoost-detector and PhishLLM-detector are for comparison. The code for the PhishLLM-detector can be found at: https://github.com/code-philia/PhishLLM
@@ -95,3 +82,14 @@ agent_defense/
 
 ### For Single Query
 This is not included in our paper, but we have implemented this feature. You can directly test it by changing the `return_tools` function in `tools.py`.
+
+## Citation
+```
+@inproceedings{UnsafeSearch2025,
+      title={Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search}, 
+      author = {Zeren Luo and Zifan Peng and Yule Liu and Zhen Sun and Mingchen Li and Jingyi Zheng and Xinlei He},
+      booktitle = {{USENIX Security Symposium (USENIX Security)}},
+      publisher = {USENIX},
+      year = {2025}
+}
+```
