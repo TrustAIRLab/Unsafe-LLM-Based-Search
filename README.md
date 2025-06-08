@@ -1,8 +1,7 @@
-# Unsafe-LLM-Based-Search
+# Risk Mitigation
 
 Official repository for "The Rising Threat to Emerging AI-Powered Search Engines".
 
-The XGBoost-detector is slightly different in usage compared to the HTML-detector (ours) and the PhishLLM-detector, as it was written before the major revision.
 
 ## **Introduction**
 
@@ -16,26 +15,30 @@ agent_defense/
 │   └──agent.py             # build_agent
 │   └──llm.py             # a discarded trail of using some special API call
 │   └──prompt.py             # prompt
-│   └──tool.py             # tool calling (you can change the tools by changing the return_tools function)
+│   └──tools.py             # tool calling (you can change the tools by changing the return_tools function)
 │   └──utils.py             # XGBoost-detector method
-│   └──selenium_fetcher.py             # HTML-detector method for getting HTML content
+│   └──selenium_fetcher.py             # HtmlLLM-detector method for getting HTML content (optional)
+│   └──template.csv             # template for basic test
 │   └──XGBoostClassifier.pickle.dat             # XGBoost-detector model weight
-└── main.py # run the defense (it contains the HTML-detector (ours))
+├── template.json             # template for basic test
+├── prompt_defense.py             # prompt-based defense code
+└── main.py # run the defense (it contains the HtmlLLM-detector (ours))
 ```
 
 ## How to Run
 
 ### Setup
 
-1. Install all required packages according to your environment.
+1. Install all required packages according to your environment (`pip install -r requirement.txt`).
 2. Enter the `openai_api_key` and `openai_base_url` parameters within the `main.py` file.
-3. Enter the `base_url` and `api_key` parameters in the `is_malicious` function within the `main.py` file.
+3. Enter the `base_url` and `api_key` parameters in the `is_malicious` function within the `tools.py` file.
+4. Enter the `base_url` and `api_key` parameters in the `prompt_defense.py` file.
 
-### For Batch Comparison
+### For Batch Comparison (shown in our paper)
 
 1. Prepare the batch_result.csv in the format below (You need to use the `is_malicious` function to obtain the results and write them to this CSV file for batch comparison):
     
-    `phish_prediction` is the result of the PhishLLM-detector, while `malicious` is the result of our method, the HTML-detector.
+    `phish_prediction` is the result of the PhishLLM-detector, while `malicious` is the result of our method, the HtmlLLM-detector.
     
     ```
     url,phish_prediction,malicious
@@ -62,12 +65,17 @@ agent_defense/
     ]
     ```
     
-3. Run
-    
+3. BasicTest Run
+
+     We provide all template files. To run a basic test, you can simply run:
     ```bash
-    python main.py --input_file your_input.json --model_name your_model_name
+    python main.py
+    python prompt_defense.py
     ```
+     after entering the parameters in the main.py, tools.py, and prompt_defense.py files. 
+     
+     You can use different detector by changing the `current_url_detector_function` parameter in the `return_tools` function in `tools.py` file. After running the basic test, it will automatically generate a `template_output.json` file for verification.
     
 
 ### For Single Query
-You need to integrate the `is_malicious` function into the `tool.py` file according to your AIPSE’s output format. We provide an example in `tool.py` as the `url_detector_4` function.
+This is not included in our paper, but we have implemented this feature. You can directly test it by changing the `return_tools` function in `tools.py`.
