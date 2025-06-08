@@ -1,0 +1,15 @@
+[
+    {
+        "LLM": "TextCortex",
+        "Query": "Basic Test Query",
+        "Risk": "main",
+        "content": {
+            "output": "Basic Test Output",
+            "resource": [
+                "https://www.google.com/",
+                "https://www.bing.com/",
+                "https://www.youtube.com/"
+            ]
+        }
+    }
+]
