@@ -1,7 +1,24 @@
-# Risk Mitigation
-
 Official repository for "Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search".
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![arXiv](https://img.shields.io/badge/arXiv-2502.04951-b31b1b.svg)](https://arxiv.org/abs/2502.04951)
+
+![Teaser Preview](teaser.png)
+
+## Citation
+If you use the JALMBench in your research, please cite the following paper:
+```
+@misc{UnsafeSearch2025,
+      title={Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search}, 
+      author = {Zeren Luo and Zifan Peng and Yule Liu and Zhen Sun and Mingchen Li and Jingyi Zheng and Xinlei He},
+      year={2025},
+      eprint={2502.04951},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2502.04951}, 
+}
+```
 
 ## **Introduction**
 
