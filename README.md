@@ -15,17 +15,17 @@ This repository provides an Agent framework of the Risk Mitigation part in our p
 ```
 agent_defense/
 ├── src/
-│   └──agent.py             # build_agent
-│   └──llm.py             # a discarded trail of using some special API call
-│   └──prompt.py             # prompt
-│   └──tools.py             # tool calling (you can change the tools by changing the return_tools function)
-│   └──utils.py             # XGBoost-detector method
-│   └──selenium_fetcher.py             # HtmlLLM-detector method for getting HTML content (optional)
-│   └──template.csv             # template for basic test
-│   └──XGBoostClassifier.pickle.dat             # XGBoost-detector model weight
-├── template.json             # template for basic test
-├── prompt_defense.py             # prompt-based defense code
-└── main.py # run the defense (it contains the HtmlLLM-detector (ours))
+│   └──agent.py                     # build_agent
+│   └──llm.py                       # a discarded trail of using some special API call
+│   └──prompt.py                    # prompt
+│   └──tools.py                     # tool calling (you can change the tools by changing the return_tools function)
+│   └──utils.py                     # XGBoost-detector method
+│   └──selenium_fetcher.py          # HtmlLLM-detector method for getting HTML content (optional)
+│   └──template.csv                 # template for basic test
+│   └──XGBoostClassifier.pickle.dat # XGBoost-detector model weight
+├── template.json                   # template for basic test
+├── prompt_defense.py               # prompt-based defense code
+└── main.py                         # run the defense (it contains the HtmlLLM-detector (ours))
 ```
 
 ## How to Run
@@ -37,7 +37,7 @@ agent_defense/
 3. Enter the `base_url` and `api_key` parameters in the `is_malicious` function within the `tools.py` file.
 4. Enter the `base_url` and `api_key` parameters in the `prompt_defense.py` file.
 
-### For Batch Comparison (shown in our paper)
+### For Batch Comparison (Shown in Our Paper)
 
 1. Prepare the batch_result.csv in the format below (You need to use the `is_malicious` function to obtain the results and write them to this CSV file for batch comparison):
     
@@ -88,7 +88,7 @@ This is not included in our paper, but we have implemented this feature. You can
 @inproceedings{UnsafeSearch2025,
       title={Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search}, 
       author = {Zeren Luo and Zifan Peng and Yule Liu and Zhen Sun and Mingchen Li and Jingyi Zheng and Xinlei He},
-      booktitle = {{USENIX Security Symposium (USENIX Security)}},
+      booktitle = {{34th USENIX Security Symposium (USENIX Security 25)}},
       publisher = {USENIX},
       year = {2025}
 }
