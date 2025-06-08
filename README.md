@@ -1,4 +1,4 @@
-Official repository for "Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search".
+Official repository for ["Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search"](https://arxiv.org/abs/2502.04951).
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -7,7 +7,6 @@ Official repository for "Unsafe LLM-Based Search: Quantitative Analysis and Miti
 ![Teaser Preview](teaser.png)
 
 ## Citation
-If you use the JALMBench in your research, please cite the following paper:
 ```
 @misc{UnsafeSearch2025,
       title={Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search}, 
