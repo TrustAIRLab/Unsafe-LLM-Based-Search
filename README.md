@@ -1,6 +1,6 @@
 # Risk Mitigation
 
-Official repository for "The Rising Threat to Emerging AI-Powered Search Engines".
+Official repository for "Unsafe LLM-Based Search: Quantitative Analysis and Mitigation of Safety Risks in AI Web Search".
 
 
 ## **Introduction**
