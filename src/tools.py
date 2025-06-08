@@ -59,8 +59,9 @@ def _normalize_url_for_matching(url_string: str) -> str:
         temp_url = "https://" + temp_url
     return temp_url.rstrip('/')
 
+# Change the csv file path to the path of the csv file
 _CSV_FILE_PATH = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), "..", "..", "..", "PhishLLM", "Final_phishllm.csv"
+    os.path.dirname(__file__), "template.csv"
 ))
 _CSV_DATA = None
 
@@ -133,50 +134,37 @@ def url_detector_2(url: List[str]) -> List[int]:
     print(f"URL Detector (2 - CSV 'malicious') results: {results}")
     return results
 
-# This detector_3 is just for testing and is not related to our paper.
-def url_detector_3(url: List[str]) -> List[int]:
-    print(f"URL Detector (3 - Combined OR) received: {url}")
-    results_1 = url_detector_1(url)
-    results_2 = url_detector_2(url)
-    combined_results = []
-    for r1, r2 in zip(results_1, results_2):
-        if r1 == 1 or r2 == 1:
-            combined_results.append(1)
-        else:
-            combined_results.append(0)
-    print(f"URL Detector (3 - Combined OR) results: {combined_results}")
-    return combined_results
-
-# This is our HTML-detector method
-def is_malicious(html_content, url, llm_model, proxies=None):
+# The HtmlLLM detector code: For comparison, we save the results of the two detectors (PhishLLM and HtmlLLM) in a CSV file, and an XGBoost model is run as shown below.
+# PhishLLM: https://github.com/code-philia/PhishLLM
+def is_malicious(html_content, url, llm_model, proxies=None, timeout=15):
     client = OpenAI(
         base_url="",
-        api_key=os.environ.get("OPENAI_API_KEY"),
+        api_key="",
     )
 
     user_content = f"HTML (first 10000 chars):\n{html_content[:10000]}\n\n" # you could change this for token saving
     user_content += f"URL: {url}\n\n"
     user_content += "Instructions:\n"
     user_content += "1.  **Primary Focus: Brand Impersonation & Phishing.**\n"
-    user_content += f"    *   Carefully compare the given URL ({url}) with official domains of any mentioned or implied brands.\n"
-    user_content += "    *   HIGHLY SUSPICIOUS if a known brand appears on generic/free hosting platforms (e.g., `brand-name.github.io`, `s3-bucket-name.s3.amazonaws.com/brand/`, `*.netlify.app`, `*.vercel.app`, etc.) especially for logins, updates, or downloads. Example: `trezor-official.github.io` is likely malicious if asking for secrets.\n"
-    user_content += "    *   Look for typosquatting (e.g., 'g00gle.com' for 'google.com', 'trez0r.com' for 'trezor.io', etc.).\n"
-    user_content += "    *   Check if forms submit data to a different or suspicious domain.\n\n"
+    user_content += f"    * Carefully compare the given URL ({url}) with official domains of any mentioned or implied brands.\n"
+    user_content += "    * HIGHLY SUSPICIOUS if a known brand appears on generic/free hosting platforms (e.g., `brand-name.github.io`, `s3-bucket-name.s3.amazonaws.com/brand/`, `*.netlify.app`, `*.vercel.app`, etc.) especially for logins, updates, or downloads. Example: `trezor-official.github.io` is likely malicious if asking for secrets.\n"
+    user_content += "    * Look for typosquatting (e.g., 'g00gle.com' for 'google.com', 'trez0r.com' for 'trezor.io', etc.).\n"
+    user_content += "    * Check if forms submit data to a different or suspicious domain.\n\n"
 
     user_content += "2.  **Software Downloads:** Deem malicious if not from the official vendor, a major app store, or a reputable software archive, OR if the download URL itself is clearly unofficial or deceptive.\n\n"
 
     user_content += "3.  **Deceptive Spam:** Consider if the page's primary purpose is one of the following:\n"
-    user_content += "    *   Aggressively pushing misleading advertisements or redirecting to ad-heavy, low-value sites.\n"
-    user_content += "    *   Low-quality, auto-generated, or keyword-stuffed content primarily for SEO manipulation (content farm) with little genuine user value.\n"
-    user_content += "    *   Promoting scams, dubious products/services with outrageous or unverifiable claims.\n"
-    user_content += "    *   This is distinct from legitimate sites with standard advertising or marketing content. The intent must be clearly deceptive or the user value extremely low.\n\n"
+    user_content += "    * Aggressively pushing misleading advertisements or redirecting to ad-heavy, low-value sites.\n"
+    user_content += "    * Low-quality, auto-generated, or keyword-stuffed content primarily for SEO manipulation (content farm) with little genuine user value.\n"
+    user_content += "    * Promoting scams, dubious products/services with outrageous or unverifiable claims.\n"
+    user_content += "    * This is distinct from legitimate sites with standard advertising or marketing content. The intent must be clearly deceptive or the user value extremely low.\n\n"
 
     user_content += "4.  **General URL Red Flags:** Analyze for misleading subdomains (e.g., 'login.google.com.security-alert.com'), excessive length, or heavy obfuscation designed to deceive, that aren't already covered by brand impersonation (point 1).\n\n"
 
     user_content += "5.  **Context & Avoiding False Positives (Crucial):**\n"
-    user_content += "    *   **Re-confirm:** The checks for Brand Impersonation (1), Malicious Downloads (2), and Deceptive Spam (3) should be the primary drivers for a 'True' classification.\n"
-    user_content += "    *   DO NOT classify as malicious: Well-known search engines (Google, Baidu, etc.), popular forums/communities (Reddit, StackOverflow, 52pojie, v2ex, etc.), wikis (Wikipedia, etc.), official brand support/documentation pages, or legitimate crypto/gaming item trading sites UNLESS they *directly and clearly* meet the criteria in points 1, 2, or 3 (e.g., a forum page *itself* hosting a phishing form with a deceptive URL, or a page that is *undeniably* deceptive spam as defined in point 3).\n"
-    user_content += "    *   The URL is the most critical piece of evidence, especially if HTML is limited.\n\n"
+    user_content += "    * **Re-confirm:** The checks for Brand Impersonation (1), Malicious Downloads (2), and Deceptive Spam (3) should be the primary drivers for a 'True' classification.\n"
+    user_content += "    * DO NOT classify as malicious: Well-known search engines (Google, Baidu, etc.), popular forums/communities (Reddit, StackOverflow, 52pojie, v2ex, etc.), wikis (Wikipedia, etc.), official brand support/documentation pages, or legitimate crypto/gaming item trading sites UNLESS they *directly and clearly* meet the criteria in points 1, 2, or 3 (e.g., a forum page *itself* hosting a phishing form with a deceptive URL, or a page that is *undeniably* deceptive spam as defined in point 3).\n"
+    user_content += "    * The URL is the most critical piece of evidence, especially if HTML is limited.\n\n"
     user_content += "Is this webpage malicious based on all the above?"
 
     prompt = [
@@ -191,7 +179,8 @@ def is_malicious(html_content, url, llm_model, proxies=None):
             model=llm_model,
             messages=prompt,
             temperature=0.1,
-            max_tokens=10,  # We only need a short True/False answer
+            max_tokens=10,
+            timeout=timeout
         )
         result = response.choices[0].message.content.strip()
         # Ensure the result is only True or False
@@ -208,7 +197,7 @@ def url_detector_4(url: List[str], timeout=30, fetch_method='requests') -> List[
 
     final_results = [None] * len(url)
     tasks_to_process = []
-    llm_model = "gpt-4"
+    llm_model = "gpt-4.1"
 
     # Stage 1: Get HTML content
     for idx, u in enumerate(url):
@@ -254,10 +243,10 @@ def url_detector_4(url: List[str], timeout=30, fetch_method='requests') -> List[
 
 
 def return_tools():
-    # Remove the comment from one of the following three lines to select a detector:
-    current_url_detector_function = url_detector_0       # XGBoost
+    # Remove the comment from one of the following lines to select a detector:
+    # current_url_detector_function = url_detector_0       # XGBoost
     # current_url_detector_function = url_detector_1       # PhishLLM (batch)
-    # current_url_detector_function = url_detector_2       # HtmlLLM (batch)
+    current_url_detector_function = url_detector_2       # HtmlLLM (batch)
     # current_url_detector_function = url_detector_4       # HtmlLLM single query example
     tools = [
         StructuredTool(
@@ -270,7 +259,7 @@ def return_tools():
                 query (str): The URL or identifier of the context in which the content was retrieved. This helps provide context for refinement.
                 content (str): The primary content to be refined, typically returned from an AI search query.
             Output:
-                refined_content (str): The output of refinement, which chonsists of CoT steps and the final output.
+                refined_content (str): The output of refinement, which consists of CoT steps and the final output.
             ''',
             args_schema=Query
         ),

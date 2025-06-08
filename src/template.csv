@@ -1,0 +1,4 @@
+url,phish_prediction,malicious
+https://www.google.com/,phish,True
+https://www.bing.com/,benign,False
+https://www.youtube.com/,benign,False
