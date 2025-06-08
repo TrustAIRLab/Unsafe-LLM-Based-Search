@@ -31,7 +31,7 @@ agent_defense/
 2. Enter the `openai_api_key` and `openai_base_url` parameters within the `main.py` file.
 3. Enter the `base_url` and `api_key` parameters in the `is_malicious` function within the `main.py` file.
 
-### For Batch Comparison (shown in our paper)
+### For Batch Comparison
 
 1. Prepare the batch_result.csv in the format below (You need to use the `is_malicious` function to obtain the results and write them to this CSV file for batch comparison):
     
