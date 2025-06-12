@@ -18,14 +18,14 @@ agent_defense/
 │   └──agent.py                     # build_agent
 │   └──llm.py                       # a discarded trail of using some special API call
 │   └──prompt.py                    # prompt
-│   └──tools.py                     # tool calling (you can change the tools by changing the return_tools function)
+│   └──tools.py                     # tool calling (You could change the tools by modifying the `return_tools` function; the HtmlLLM-detector's prompt can be found in the `is_malicious` function.)
 │   └──utils.py                     # XGBoost-detector method
 │   └──selenium_fetcher.py          # HtmlLLM-detector method for getting HTML content (optional)
 │   └──template.csv                 # template for basic test
 │   └──XGBoostClassifier.pickle.dat # XGBoost-detector model weight
 ├── template.json                   # template for basic test
 ├── prompt_defense.py               # prompt-based defense code
-└── main.py                         # run the defense (it contains the HtmlLLM-detector (ours))
+└── main.py                         # run the defense (It uses the HtmlLLM-detector (ours) by default.)
 ```
 
 ## How to Run
