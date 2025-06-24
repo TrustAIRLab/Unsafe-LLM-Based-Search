@@ -1,4 +1,3 @@
 url,phish_prediction,malicious
-https://www.google.com/,phish,True
-https://www.bing.com/,benign,False
-https://www.youtube.com/,benign,False
+https://www.kimi.com/,benign,False
+https://www.doubao.com/chat/,benign,False

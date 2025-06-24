@@ -2,7 +2,7 @@ openai
 langchain
 langchain-openai
 bs4
-whois
+python-whois
 pandas
 selenium
 requests

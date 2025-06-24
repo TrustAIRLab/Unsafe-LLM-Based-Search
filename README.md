@@ -16,7 +16,6 @@ This repository provides an Agent framework of the Risk Mitigation part in our p
 agent_defense/
 ├── src/
 │   └──agent.py                     # build_agent
-│   └──llm.py                       # a discarded trail of using some special API call
 │   └──prompt.py                    # prompt
 │   └──tools.py                     # tool calling (You could change the tools by modifying the `return_tools` function; the HtmlLLM-detector's prompt can be found in the `is_malicious` function.)
 │   └──utils.py                     # XGBoost-detector method
@@ -24,6 +23,7 @@ agent_defense/
 │   └──template.csv                 # template for basic test
 │   └──XGBoostClassifier.pickle.dat # XGBoost-detector model weight
 ├── template.json                   # template for basic test
+├── requirement.txt                   # required packages, use `pip install -r requirement.txt` to install
 ├── prompt_defense.py               # prompt-based defense code
 └── main.py                         # run the defense (It uses the HtmlLLM-detector (ours) by default.)
 ```
@@ -33,9 +33,7 @@ agent_defense/
 ### Setup
 
 1. Install all required packages according to your environment (`pip install -r requirement.txt`).
-2. Enter the `openai_api_key` and `openai_base_url` parameters within the `main.py` file.
-3. Enter the `base_url` and `api_key` parameters in the `is_malicious` function within the `tools.py` file.
-4. Enter the `base_url` and `api_key` parameters in the `prompt_defense.py` file.
+2. Register **OpenAI API Key**, [See Tutorial here](https://platform.openai.com/docs/quickstart). Paste the API key to './src/openai.txt'.
 
 ### For Batch Comparison (Shown in Our Paper)
 
@@ -81,7 +79,7 @@ agent_defense/
     
 
 ### For Single Query
-This is not included in our paper, but we have implemented this feature. You can directly test it by changing the `return_tools` function in `tools.py`.
+You can directly test it by changing the `return_tools` function in `tools.py`.
 
 ## Citation
 ```
