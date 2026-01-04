@@ -81,6 +81,26 @@ agent_defense/
 ### For Single Query
 You can directly test it by changing the `return_tools` function in `tools.py`.
 
+## Note:
+
+The domains used in our case study will expire a few days after January 4, 2026. We have archived their content via the Wayback Machine. Please refer to the list below for details about the archived webpages:
+
+- https://web.archive.org/web/20260104065618/https://www.hsfaisz.org/
+
+- https://web.archive.org/web/20260104070008/https://www.hsfaisz.org/2025/01/18/taisriyahid-a-new-tais-creature-official-information/
+
+- https://web.archive.org/web/20260104070143/https://hsfaisz.com/
+
+- https://web.archive.org/web/20260104070530/https://hsfaisz.com/2024/12/23/taisriyahid/
+
+- https://web.archive.org/web/20260104071148/https://v50.site/
+
+- https://web.archive.org/web/20260104071555/https://docs.v50.site/
+
+These domains are no longer under our control and have been released back into the domain market. As such, we are no longer responsible for their content or any communications originating from them.
+
+⚠️ Caution: Any messages or information sent from these domains do not represent us anymore.
+
 ## Citation
 ```
 @inproceedings{UnsafeSearch2025,
@@ -91,3 +111,4 @@ You can directly test it by changing the `return_tools` function in `tools.py`.
       year = {2025}
 }
 ```
+
